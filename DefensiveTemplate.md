@@ -100,7 +100,7 @@ Traffic to these services should be carefully monitored. To this end, we have im
 
 The logs and alerts generated during the assessment suggest that this network is susceptible to several active threats, identified by the alerts above. In addition to watching for occurrences of such threats, the network should be hardened against them. The Blue Team suggests that IT implement the fixes below to protect the network:
 - <u> Wordpress User Enumeration Vulnerabilities </u>
-  - **Patch 1**: use a free plugin "WP Hardening" to disable User Enumeration in WordPress
+  - **Patch**: use a free plugin "WP Hardening" to disable User Enumeration in WordPress
     - Install and activate plugin > 'Security Fixers' tab > Stop user enumeration.
     - **Why It Works**: By disabling User Enumeration function, it will stop the attacker to enumerate user lists.
 - <u> Open Port 22 SSH & Weak Password Vulnerabilities </u>
@@ -116,7 +116,7 @@ The logs and alerts generated during the assessment suggest that this network is
     - **Why It Works**: By using the encryption, even if unauthorized person gets into the system, they are not easily able to grab the login credentials to access the database.
     - Proprietary information, including hashed passwords, is viewable in plaintext on html pages.
 
-- <u> Previlege Escalation </u>
+- <u> Previlege Escalation Vulnerabilities</u>
   - **Patch**: Only give authority to the person who is responsible for.
     - **Why It Works**: By having correct file permissions for user accounts, we can maintain control over assigned roles and permissions for any accounts.
     - Role and permission management is important for preventing vertical or horizontal escalation of privileges to unauthorized users. Bad example was Steven's account's ability to run phython scripting through his login.
