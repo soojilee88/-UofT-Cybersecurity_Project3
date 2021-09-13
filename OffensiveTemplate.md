@@ -160,7 +160,6 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
         - while going through all the files, found flag 1
         ![FLAG1_2](Images/Offensive/flag1_2.png)
 
-
   - `flag2.txt`: 6a8ed560f0b5358ecf844108048eb337
     - **Exploit Used**
       - With the Vendor directory exposed, you could see from this subdirectory that this WordPress website uses `PHPMailerAutoload.php`
