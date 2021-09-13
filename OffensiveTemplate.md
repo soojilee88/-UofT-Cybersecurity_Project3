@@ -141,8 +141,10 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       ![Sudo_Steven_1](Images/Offensive/Sudo_steven_1.png)
       ![Sudo_Steven_2](Images/Offensive/Sudo_steven_2.png)
       ![Sudo_Steven_3](Images/Offensive/Sudo_steven_3.png)
+
 <br>
 <br>
+
 - Target 2
   -  `flag1.txt`: a2c1f66d2b8051bd3a5874b5b6e43e21
       - **Exploit Used**
