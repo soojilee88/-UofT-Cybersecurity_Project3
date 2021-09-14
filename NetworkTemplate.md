@@ -2,7 +2,7 @@
 
 ## Setup
 
-For This Part of the Project, live traffic within the intranet was captured through wireshark.
+For this part of the Project, live traffic within the intranet was captured through wireshark.
 - For the purpose of this project,command `systemctl start sniff` was ran which uses `tcpreplay` to replay PCAPs in `/opt/pcaps` onto Kali's `eth0` interface.
 - This was then captured for about 15min through wireshark as live traffic.
 - Once the live traffic was all captured, command `systemctl stop sniff` was ran to stop the `tcpreply`.
