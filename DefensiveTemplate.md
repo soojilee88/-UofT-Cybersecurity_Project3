@@ -39,9 +39,9 @@ The following machines were identified on the network:
 
 ### Description of Targets
 
-The target of this attack was: `Target 1` (192.168.1.110).
+The target of this attack was: `Target 1` (192.168.1.110) & `Target 2` (192.168.1.115)
 
-Target 1 is an Apache web server and has SSH enabled, so ports 80 and 22 are possible ports of entry for attackers. As such, the following alerts have been implemented:
+Target 1 & 2 has an Apache web server and SSH enabled, so ports 80 and 22 are possible ports of entry for attackers. As such, the following alerts have been implemented:
   - **SSH Log in Alert**
     - Monitor for SSH credentials bruteforce attack
     - Monitor for SSH port for unauthorized access.
@@ -66,7 +66,7 @@ Traffic to these services should be carefully monitored. To this end, we have im
 `Excessive HTTP Error` is implemented as follows:
   - **Metric**: packetbeat
   - **Threshold**: `http.response.status_code`is above 400 for last 5 minutes
-  - **Vulnerability Mitigated**: Bruteforce Attacks, DoS Attacks
+  - **Vulnerability Mitigated**: Bruteforce Attacks, DoS Attacks, Enumeration
   - **Reliability**: This would be high reliability as this alert would generate lots of True Positives. With the Threshhold set with certain time, this would definately help with the alert system.
   - `WHEN count() GROUPED OVER top 5 'http.response.status_code' IS ABOVE 400 FOR THE LAST 5 minutes`
   ![Excessive_HTTP_Errors](Images/Defensive/Excessive_HTTP_Errors.png)
@@ -89,7 +89,7 @@ Traffic to these services should be carefully monitored. To this end, we have im
   - **Metric**: Metricbeat
   - **Threshold**: `system.process.cpu.total.pct` is above 0.5 for the last 5 minutes
   - **Vulnerability Mitigated**: DoS Attacks
-  - **Reliability**: This would be low reliability, as so many alearts would generate with falt positives. CPU could spike up when there are alot of resources being consumed due to many different reasons.
+  - **Reliability**: This would be low reliability, as so many alearts would generate with falt positives. CPU could spike up when there are alot of resources being consumed due to many different reasons. You might possibly have exploit file that's being ran can also consome large amount of resources.
    - `WHEN max() OF system.process.cpu.total.pct OVER all documents IS ABOVE 0.5 FOR THE LAST 5 minutes`
    ![CPU_Usage](Images/Defensive/CPU_Usage.png)
 
@@ -117,9 +117,11 @@ The logs and alerts generated during the assessment suggest that this network is
     - Proprietary information, including hashed passwords, is viewable in plaintext on html pages.
 
 - <u> Previlege Escalation Vulnerabilities</u>
-  - **Patch**: Only give authority to the person who is responsible for.
+  - **Patch 1** : Only give authority to the person who is responsible for.
     - **Why It Works**: By having correct file permissions for user accounts, we can maintain control over assigned roles and permissions for any accounts.
     - Role and permission management is important for preventing vertical or horizontal escalation of privileges to unauthorized users. Bad example was Steven's account's ability to run phython scripting through his login.
+  - **Patch 2** : Disable Root User login
+    - **Why It Works**: Edit the /etc/passwd file where `root:x:0:0:root/root:bin/bash` to `root:x:0:0:root/root:sbin/nologin`
 
 - <u> WordPress XML-RPC Related Vulnerabilities </u>
     - **Patch 1**: udpate WordPress to the latest version
@@ -127,6 +129,13 @@ The logs and alerts generated during the assessment suggest that this network is
     - **Patch 2**: Disable XML-RPC API settings if enabled. 
        - **Why It Works**: `xmlrpc.php` on WordPress site introduces several security vulnerabilities and can be the target of attacks like DDoS Attacks via XML-RPC Pingbacks or Brute Force Attacks via XML-RPC.
        - You can disable them by using a Plugin or have hosting provider disable `xmlrpc.php`.
+
+<br>
+The best practice to mitigate most of the vulnerabilities would be updating all the software/programs that are being used.
+
+  - For example, in this case, update MySQL version to the most recent so that Root Privilege Escalation Exploit used in Target 2 is not possible.
+  - Also, ensure that PHPMailer is equiped with latest updates
+  - Lastly, make sure that `/vendor/` subdirectory is not publicly facing, as this subdirectory contains system information of the wordpress server.
 
 <br>
 <br>
