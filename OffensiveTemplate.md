@@ -117,7 +117,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
     - **Exploit Used**
       - MySQL is being run as a database for WordPress.
       - to find the authentication for the MySQL database, configuration file was needed.
-      - wp-config.php was spotted.
+      - wp-config.php was spotted.<br>
       ![MySQLconfig](Images/Offensive/MySQLconfig.png)
       ![wp-config.php](Images/Offensive/wp-config.php.png)
       - using the credentials to log into MySQL, searched through database.
@@ -157,14 +157,14 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
         - Visited all the subdirectories that was listed on the output.
         - found out that `/vendor` subdirectory contained several files that I believe it should not be publicly facing.
         ![vendor_subdirectory](Images/Offensive/vendor.png)
-        - while going through all the files, found flag 1
+        - while going through all the files, found flag 1<br>
         ![FLAG1_2](Images/Offensive/flag1_2.png)
 
   - `flag2.txt`: 6a8ed560f0b5358ecf844108048eb337
     - **Exploit Used**
-      - With the Vendor directory exposed, you could see from this subdirectory that this WordPress website uses `PHPMailerAutoload.php`
+      - With the Vendor directory exposed, you could see from this subdirectory that this WordPress website uses `PHPMailerAutoload.php` <br>
       ![PHPMailer](Images/Offensive/PHPMailer.png)
-      - Also found version of the PHPMailer this Server uses
+      - Also found version of the PHPMailer this Server uses <br>
       ![PHPMailer_Version](Images/Offensive/version.png)
       - So with this version, you can search within searchsploit to see if there is exploit that can be used
       ![searchsploit_phpmailer](Images/Offensive/searchsploit_phpmailer.png)
